@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Net.Http;
 using WebGather.Video;
 using WebGather.Video.Tension;
 
@@ -9,14 +11,25 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            TestVideoGather("寻龙诀");//寻龙诀
+            //TestVideoGather("寻龙诀");//寻龙诀
+            
 
-            //while (true)
-            //{
-            //    Console.Write("输入视频名称：");
-            //    string input = Console.ReadLine();
-            //    Console.WriteLine("==============================================");
-            //}
+            HttpClient httpClient = new HttpClient();
+            string url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E5%8A%A8%E4%BD%9C&sort=time&page_limit=400&page_start=400";
+            var json = httpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
+            foreach (var item in JToken.Parse(json)["subjects"])
+            {
+                //Console.WriteLine(item["title"]);
+                TestVideoGather(item["title"].ToString());
+            }
+
+
+            while (true)
+            {
+                Console.Write("输入视频名称：");
+                string input = Console.ReadLine();
+                Console.WriteLine("==============================================");
+            }
             Console.ReadLine();
         }
 
