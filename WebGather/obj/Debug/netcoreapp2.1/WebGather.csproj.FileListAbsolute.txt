@@ -10,7 +10,6 @@ C:\Users\MR.Z\OneDrive\repos\项目\GitHub项目\WebGather\WebGather\WebGather\o
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\bin\Debug\netcoreapp2.1\WebGather.deps.json
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\bin\Debug\netcoreapp2.1\WebGather.dll
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\bin\Debug\netcoreapp2.1\WebGather.pdb
-C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.csprojAssemblyReference.cache
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.AssemblyInfoInputs.cache
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.AssemblyInfo.cs

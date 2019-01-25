@@ -45,7 +45,7 @@ namespace WebGather.Video.Tension
             var oldStat = htmlNode.Attributes["_oldstat"].Value.Split("&");
             string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
             string id = htmlNode.Attributes["data-id"].Value;
-            string plname = string.Join("", htmlNode.ChildNodes.FirstOrDefault(child => child.HasClass("result_source"))?.Attributes["r-props"]?.Value?.SkipWhile(s => s != '\'').Skip(1).TakeWhile(s => s != '\'') ?? "");
+            string plname = this.GetPlname(htmlNode);
             string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
             string type = "5";//单按钮(立即播放)写死 5
             string data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last();
@@ -77,7 +77,7 @@ namespace WebGather.Video.Tension
             var oldStat = htmlNode.Attributes["_oldstat"].Value.Split("&");
             string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
             string id = htmlNode.Attributes["data-id"].Value;
-            string plname = string.Join("", htmlNode.ChildNodes.FirstOrDefault(child => child.HasClass("result_source"))?.Attributes["r-props"].Value.SkipWhile(s => s != '\'').Skip(1).TakeWhile(s => s != '\'') ?? "");
+            string plname = this.GetPlname(htmlNode);
             string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
             string type = "4";
             string range = this.GetRange(htmlNode);
@@ -118,7 +118,7 @@ namespace WebGather.Video.Tension
                 {
                     string id = htmlNode.Attributes["data-id"].Value;
                     string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
-                    string plname = string.Join("", htmlNode.ChildNodes.FirstOrDefault(child => child.HasClass("result_source"))?.Attributes["r-props"].Value.SkipWhile(s => s != '\'').Skip(1).TakeWhile(s => s != '\'') ?? "");
+                    string plname = this.GetPlname(htmlNode);
                     string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
                     string type = "4";
                     string range = this.GetRange(htmlNode);
@@ -163,7 +163,7 @@ namespace WebGather.Video.Tension
                 {
                     string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
                     string id = htmlNode.Attributes["data-id"].Value;
-                    string plname = string.Join("", htmlNode.ChildNodes.FirstOrDefault(child => child.HasClass("result_source"))?.Attributes["r-props"].Value.SkipWhile(s => s != '\'').Skip(1).TakeWhile(s => s != '\'') ?? "");
+                    string plname = this.GetPlname(htmlNode);
                     string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
                     string type = "4";
                     string range = this.GetRange(htmlNode);
@@ -230,17 +230,40 @@ namespace WebGather.Video.Tension
         /// <returns></returns>
         private string GetRange(HtmlNode htmlNode)
         {
-            JObject propsJObject = JObject.Parse(htmlNode.ChildNodes.FirstOrDefault(node => node.HasClass("_playlist")).FirstChild.Attributes["r-props"].Value.Replace(";", ","));
-            if (propsJObject.TryGetValue("activeRange", out JToken jToken))
+            var targetNode = htmlNode.ChildNodes.FirstOrDefault(node => node.HasClass("_playlist")).FirstChild;
+            JObject propsJObject = JObject.Parse(targetNode.Attributes["r-props"].Value.Replace(";", ","));
+            if (propsJObject.TryGetValue("activeRange", out JToken jToken))//activeRange
             {
                 return jToken.ToString();
             }
             else if (propsJObject.TryGetValue("activeId", out JToken jToken2))
             {
+                if (jToken2.ToString().Length > 6)//针对爱奇艺 类似数据:6886344511270958589,无法查询
+                {
+                    propsJObject = JObject.Parse(targetNode.FirstChild.FirstChild.Attributes["r-props"].Value.Replace(";", ","));
+                    if (propsJObject.TryGetValue("range", out JToken jToken3))
+                    {
+                        return jToken3.ToString();
+                    }
+                }
                 return jToken2.ToString();
             }
             return DateTime.Now.Year.ToString();
         }
 
+        private string GetPlname(HtmlNode htmlNode)
+        {
+            var targetNode = htmlNode.ChildNodes.FirstOrDefault(node => node.HasClass("_playlist")).FirstChild;
+            JObject propsJObject = JObject.Parse(targetNode.Attributes["r-props"].Value.Replace(";", ","));
+            if (propsJObject.TryGetValue("playSrc", out JToken jToken))
+            {
+                return jToken.ToString();
+            }
+            else if (propsJObject.TryGetValue("playSrcName", out JToken jToken2))
+            {
+                return jToken2.ToString();
+            }
+            return string.Empty;
+        }
     }
 }
