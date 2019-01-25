@@ -20,7 +20,7 @@ namespace TestConsole
         public static void TestVideoGather()
         {
             IVideoGather videoGather = new TensionHtmlDocHandle();
-            var result = videoGather.GetSearchResult("斗罗大陆");
+            var result = videoGather.GetSearchResult("古剑奇谭之流月昭明");//古剑奇谭之流月昭明
             Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
         }
     }
