@@ -211,10 +211,14 @@ namespace WebGather.Video.Tension
                 {
                     if (jToken2.ToString().Length > 6)//针对爱奇艺 类似数据:6886344511270958589,无法查询
                     {
-                        propsJObject = JObject.Parse(targetNode.FirstChild.FirstChild.Attributes["r-props"].Value.Replace(";", ","));
-                        if (propsJObject.TryGetValue("range", out JToken jToken3))
+                        string json = targetNode?.FirstChild?.FirstChild?.Attributes["r-props"]?.Value?.Replace(";", ",");
+                        if (!string.IsNullOrEmpty(json))
                         {
-                            return jToken3.ToString();
+                            propsJObject = JObject.Parse(json);
+                            if (propsJObject.TryGetValue("range", out JToken jToken3))
+                            {
+                                return jToken3.ToString();
+                            }
                         }
                     }
                     return jToken2.ToString();

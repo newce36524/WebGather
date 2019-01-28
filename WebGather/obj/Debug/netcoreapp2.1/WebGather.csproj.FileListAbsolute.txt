@@ -16,3 +16,12 @@ C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreap
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.dll
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.pdb
 C:\Users\Administrator\Desktop\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\bin\Debug\netcoreapp2.1\WebGather.deps.json
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\bin\Debug\netcoreapp2.1\WebGather.dll
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\bin\Debug\netcoreapp2.1\WebGather.pdb
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.AssemblyInfo.cs
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.dll
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\WebGather\obj\Debug\netcoreapp2.1\WebGather.pdb

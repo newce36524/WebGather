@@ -26,3 +26,17 @@ C:\Users\Administrator\Desktop\Git开源\WebGather\TestConsole\obj\Debug\netcore
 C:\Users\Administrator\Desktop\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.dll
 C:\Users\Administrator\Desktop\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.pdb
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\TestConsole.deps.json
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\TestConsole.runtimeconfig.json
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\TestConsole.runtimeconfig.dev.json
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\TestConsole.dll
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\TestConsole.pdb
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\WebGather.dll
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\bin\Debug\netcoreapp2.1\WebGather.pdb
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.AssemblyInfo.cs
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.csproj.CopyComplete
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.dll
+C:\Users\Administrator\Documents\Upupoo\Docker\config\文件夹\Git开源\WebGather\TestConsole\obj\Debug\netcoreapp2.1\TestConsole.pdb

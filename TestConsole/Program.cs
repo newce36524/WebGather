@@ -11,11 +11,11 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            TestVideoGather("移动迷宫2");//寻龙诀
+            TestVideoGather("锵锵三人行");//寻龙诀
             
 
             HttpClient httpClient = new HttpClient();
-            string url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E5%8A%A8%E4%BD%9C&sort=time&page_limit=400&page_start=400";
+            string url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E5%8A%A8%E4%BD%9C&sort=time&page_limit=500&page_start=1";
             var json = httpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
             foreach (var item in JToken.Parse(json)["subjects"])
             {

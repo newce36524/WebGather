@@ -4051,11 +4051,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\TestConsole\\TestConsole.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\TestConsole\\TestConsole.csproj",
       "projectName": "TestConsole",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\TestConsole\\TestConsole.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\TestConsole\\TestConsole.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\TestConsole\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\TestConsole\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4074,8 +4074,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\WebGather\\WebGather.csproj": {
-              "projectPath": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\WebGather\\WebGather.csproj"
+            "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\WebGather\\WebGather.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\WebGather\\WebGather.csproj"
             }
           }
         }

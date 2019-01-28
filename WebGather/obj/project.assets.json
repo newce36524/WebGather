@@ -4032,11 +4032,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\WebGather\\WebGather.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\WebGather\\WebGather.csproj",
       "projectName": "WebGather",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\WebGather\\WebGather.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\WebGather\\WebGather.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\Git开源\\WebGather\\WebGather\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\Upupoo\\Docker\\config\\文件夹\\Git开源\\WebGather\\WebGather\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
