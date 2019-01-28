@@ -33,8 +33,6 @@ namespace WebGather.Video.Tension
             return htmlNode.ChildNodes.Count(x => x.HasClass("mod_play_source")) > 0;
         }
 
-
-
         protected override bool CheckList(HtmlNode htmlNode)
         {
             return htmlNode.ChildNodes.Count(x => x.HasClass("result_episode_list") || x.HasClass("_playlist")) > 0;
@@ -44,19 +42,21 @@ namespace WebGather.Video.Tension
         {
             var oldStat = htmlNode.Attributes["_oldstat"].Value.Split("&");
             string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
-            string id = htmlNode.Attributes["data-id"].Value;
-            string plname = this.GetPlname(htmlNode);
-            string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
-            string type = "5";//单按钮(立即播放)写死 5
-            string data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last();
-            string video_type = sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last();
-            string otype = "json";
-            string uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-");
-            string callback = "";
-            string _t = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-
-            List<GatherResult> result = new List<GatherResult>();
-            var link = $"https://s.video.qq.com/get_playsource?id={id}&plat={plat}&type={type}&data_type={data_type}&video_type={video_type}&plname={plname}&otype={otype}&callback={callback}";
+            var paramModel = new ParamModel
+            {
+                Id = htmlNode.Attributes["data-id"].Value,
+                Plname = this.GetPlname(htmlNode),
+                Plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last(),
+                Type = "5",
+                Data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last(),
+                Video_type = sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last(),
+                Otype = "json",
+                Uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-"),
+                Callback = "",
+                Range = this.GetRange(htmlNode),
+                CurrentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
+            };
+            var link = $"https://s.video.qq.com/get_playsource?{paramModel}";
             var gatherResult = GetGatherResult(link, htmlNode);
             var tagA = htmlNode.ChildNodes.FirstOrDefault(node => node.HasClass("result_btn_line"))?.Descendants("a");
             if (tagA != null && tagA.Count() > 1)
@@ -68,28 +68,29 @@ namespace WebGather.Video.Tension
                     Link = a.Attributes["href"].Value
                 }).SkipLast(1));
             }
-            result.Add(gatherResult);
-            return result;
+            return new List<GatherResult>() { gatherResult };
         }
 
         protected override GatherResult OnOnePlatAndList(HtmlNode htmlNode)
         {
             var oldStat = htmlNode.Attributes["_oldstat"].Value.Split("&");
             string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
-            string id = htmlNode.Attributes["data-id"].Value;
-            string plname = this.GetPlname(htmlNode);
-            string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
-            string type = "4";
-            string range = this.GetRange(htmlNode);
-
-            string data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last();
-            string video_type = sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last();
-            string otype = "json";
-            string uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-");
-            string callback = "";
-            string _t = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-            string link = $"https://s.video.qq.com/get_playsource?id={id}&plname={plname}&range={range}&plat={plat}&type={type}&data_type={data_type}&video_type={video_type}&otype={otype}&uid={uid}&callback={callback}&_t={_t}";
-            return GetGatherResult(link, htmlNode);
+            var paramModel = new ParamModel
+            {
+                Id = htmlNode.Attributes["data-id"].Value,
+                Plname = this.GetPlname(htmlNode),
+                Plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last(),
+                Type = "4",
+                Data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last(),
+                Video_type = sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last(),
+                Otype = "json",
+                Uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-"),
+                Callback = "",
+                Range = this.GetRange(htmlNode),
+                CurrentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
+            };
+            var result = this.Retry(param => GetGatherResult($"https://s.video.qq.com/get_playsource?{param}", htmlNode), paramModel, 4);
+            return result;
         }
 
         protected override IEnumerable<GatherResult> OnPlatsAndButton(HtmlNode htmlNode)
@@ -97,41 +98,28 @@ namespace WebGather.Video.Tension
             var oldStat = htmlNode.Attributes["_oldstat"].Value.Split("&");
             return htmlNode.ChildNodes.First(d => d.HasClass("play_source_list")).Descendants("li").Select(d =>
             {
-                string defaultStr = string.Empty;
+                string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
                 var @params = JsonConvert.DeserializeObject<ReqParamModel>(d.Attributes["data-params"].Value.Replace("&quot;", "\""));
-
-                if (@params != null)
+                var paramModel = new ParamModel
                 {
-                    var id = @params.id;
-                    var plname = @params.plname;
-                    var plat = @params.plat;
-                    var type = @params.type;
-                    var data_type = @params.data_type;
-                    var video_type = @params.video_type;
-                    var otype = "json";
-                    var uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-");
-                    var callback = string.Empty;
-                    string _t = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-                    defaultStr = $" https://s.video.qq.com/get_playsource?id={id}&plname={plname}&plat={plat}&type={type}&data_type={data_type}&video_type={video_type}&otype={otype}&uid={uid}&callback={callback}&_={_t}";
-                }
-                else
-                {
-                    string id = htmlNode.Attributes["data-id"].Value;
-                    string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
-                    string plname = this.GetPlname(htmlNode);
-                    string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
-                    string type = "4";
-                    string range = this.GetRange(htmlNode);
-                    string data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last();
-                    string video_type = sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last();
-                    string otype = "json";
-                    string uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-");
-                    string callback = string.Empty;
-                    string _t = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-                    defaultStr = $"https://s.video.qq.com/get_playsource?id={id}&plname={plname}&plat={plat}&type={type}&range={range}&data_type={data_type}&video_type={video_type}&otype={otype}&uid={uid}&callback={callback}&_={_t}";
-                }
-                return defaultStr;
-            }).Select(link => GetGatherResult(link, htmlNode));
+                    Id = @params != null ? @params.id : htmlNode.Attributes["data-id"].Value,
+                    Plname = @params != null ? @params.plname : this.GetPlname(htmlNode),
+                    Plat = @params != null ? @params.plat : sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last(),
+                    Type = @params != null ? @params.type : "4",
+                    Data_type = @params != null ? @params.data_type.ToString() : sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last(),
+                    Video_type = @params != null ? @params.video_type.ToString() : sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last(),
+                    Otype = "json",
+                    Uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-"),
+                    Callback = string.Empty,
+                    Range = this.GetRange(htmlNode),
+                    CurrentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
+                };
+                return paramModel;
+            }).Select(paramModel =>
+            {
+                var result = this.Retry(param => GetGatherResult($"https://s.video.qq.com/get_playsource?{param}", htmlNode), paramModel, 4);
+                return result;
+            });
         }
 
         protected override IEnumerable<GatherResult> OnPlatsAndList(HtmlNode htmlNode)
@@ -141,42 +129,23 @@ namespace WebGather.Video.Tension
 
             return lis.Select(d =>
             {
-                string deafault = string.Empty;
                 var @params = JsonConvert.DeserializeObject<ReqParamModel>(d.Attributes["data-params"].Value.Replace("&quot;", "\""));
-                if (@params != null)
+                string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
+                var paramModel = new ParamModel
                 {
-                    var id = @params.id;
-                    var plname = @params.plname;
-                    var plat = @params.plat;
-                    var type = 4;//@params.type
-                    var data_type = @params.data_type;
-                    string range = this.GetRange(htmlNode);
-
-                    var video_type = @params.video_type;
-                    var otype = "json";
-                    var uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-");
-                    var callback = string.Empty;
-                    string _t = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-                    deafault = $"https://s.video.qq.com/get_playsource?id={id}&plname={plname}&plat={plat}&type={type}&range={range}&data_type={data_type}&video_type={video_type}&otype={otype}&uid={uid}&callback={callback}&_={_t}";
-                }
-                else
-                {
-                    string sval8 = oldStat.First(s => s.Contains("sval8")).Split("=").Last();
-                    string id = htmlNode.Attributes["data-id"].Value;
-                    string plname = this.GetPlname(htmlNode);
-                    string plat = sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last();
-                    string type = "4";
-                    string range = this.GetRange(htmlNode);
-
-                    string data_type = sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last();
-                    string video_type = sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last();
-                    string otype = "json";
-                    string uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-");
-                    string callback = string.Empty;
-                    string _t = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-                    deafault = $"https://s.video.qq.com/get_playsource?id={id}&plname={plname}&plat={plat}&type={type}&range={range}&data_type={data_type}&video_type={video_type}&otype={otype}&uid={uid}&callback={callback}&_={_t}";
-                }
-                return deafault;
+                    Id = @params != null ? @params.id : htmlNode.Attributes["data-id"].Value,
+                    Plname = @params != null ? @params.plname : this.GetPlname(htmlNode),
+                    Plat = @params != null ? @params.plat : sval8.Split("%2526").First(s => s.Contains("plat")).Split("%253D").Last(),
+                    Type = "4",
+                    Range = this.GetRange(htmlNode),
+                    Data_type = @params != null ? @params.data_type.ToString() : sval8.Split("%26").First(s => s.Contains("data%5Ftype")).Split("%3D").Last(),
+                    Video_type = @params != null ? @params.video_type.ToString() : sval8.Split("%26").First(s => s.Contains("video%5Ftype")).Split("%3D").Last(),
+                    Otype = "json",
+                    Uid = oldStat.First(s => s.Contains("guid")).Split("=").Last().Replace("%2D", "-"),
+                    Callback = string.Empty,
+                    CurrentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
+                };
+                return $"https://s.video.qq.com/get_playsource?{paramModel}";
             }).Select(link => GetGatherResult(link, htmlNode));
         }
 
@@ -230,8 +199,8 @@ namespace WebGather.Video.Tension
         /// <returns></returns>
         private string GetRange(HtmlNode htmlNode)
         {
-            var targetNode = htmlNode.ChildNodes.FirstOrDefault(node => node.HasClass("_playlist")).FirstChild;
-            if (targetNode!=null)
+            var targetNode = htmlNode.ChildNodes.FirstOrDefault(node => node.HasClass("_playlist"))?.FirstChild;
+            if (targetNode != null)
             {
                 JObject propsJObject = JObject.Parse(targetNode.Attributes["r-props"].Value.Replace(";", ","));
                 if (propsJObject.TryGetValue("activeRange", out JToken jToken))//activeRange
@@ -271,5 +240,39 @@ namespace WebGather.Video.Tension
             }
             return string.Empty;
         }
+
+        /// <summary>
+        /// range 重试，解决range字段找不到，但又必须提供的问题
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="paramModel"></param>
+        /// <param name="retryNum"></param>
+        /// <returns></returns>
+        private GatherResult Retry(Func<ParamModel, GatherResult> func, ParamModel paramModel, int retryNum)
+        {
+            GatherResult result = default(GatherResult);
+            try
+            {
+                result = func(paramModel);
+                return result;
+            }
+            catch (Exception)
+            {
+                for (int i = 1; i <= retryNum; i++)
+                {
+                    try
+                    {
+                        paramModel.Range = $"{DateTime.Now.Year - i}";
+                        result = func(paramModel);
+                        return result;
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return result;
+            }
+        }
+
     }
 }

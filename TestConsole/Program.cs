@@ -11,7 +11,7 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            //TestVideoGather("寻龙诀");//寻龙诀
+            TestVideoGather("移动迷宫2");//寻龙诀
             
 
             HttpClient httpClient = new HttpClient();
@@ -19,7 +19,7 @@ namespace TestConsole
             var json = httpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
             foreach (var item in JToken.Parse(json)["subjects"])
             {
-                //Console.WriteLine(item["title"]);
+                Console.WriteLine(item["title"]);
                 TestVideoGather(item["title"].ToString());
             }
 
